@@ -16,13 +16,13 @@ int main(int argc, char **argv) {
     int stack_top = -1;
     char command;
 
-    // terminal handling...
+    // terminal handling to get getchar working properly
+    // thanks to http://stackoverflow.com/questions/1798511/
     static struct termios oldt, newt;
     tcgetattr(STDIN_FILENO, &oldt);
     newt = oldt;
     newt.c_lflag &= ~(ICANON);
 
-    // ...to get getchar working properly
     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 
     while(fread(&command, 1, 1, f)) {
